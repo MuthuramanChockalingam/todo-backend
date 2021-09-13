@@ -32,3 +32,20 @@ exports.deletetodo = async(req, res) => {
         message: result ? "success" : "ID does not exists"
     })
 }
+
+exports.updateTodo = async(req, res) => {
+    const result = await todo.update({
+        text: req.body.text
+    },
+    {
+        where: {
+            id: {
+                [Op.eq]: req.params.todo_id
+            }
+        }
+    }
+    );
+    res.json({
+        message: result ? "success" : "error"
+    })
+}
