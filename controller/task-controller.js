@@ -13,14 +13,25 @@ exports.createTask = async (req, res) => {
     })
 }
 
-exports.getTask = async (req, res) => {
+exports.listTasks = async (req, res) => {
     const result = await task.findAll({});
-    res.json({
-        tasks: result
-    })
+    res.json(result)
 }
 
-exports.removeTask = async (req, res) => {
+exports.getTask = async (req, res) => {
+    const {task_id} = req.params;
+
+    const result = await task.findOne({
+        where: {
+            id: {
+                [Op.eq]: task_id
+            }
+        }
+    });
+    res.json(result)
+}
+
+exports.deleteTask = async (req, res) => {
     const result = await task.destroy({
         where: {
             id: {
@@ -28,9 +39,7 @@ exports.removeTask = async (req, res) => {
             }
         }
     });
-    res.json({
-        message: result ? "succesfully removed" : "failed"
-    })
+    res.json(result ? {} : { message: "failed" })
 }
 
 exports.updateTask = async (req, res) => {
@@ -44,7 +53,5 @@ exports.updateTask = async (req, res) => {
             }
         }
     });
-    res.json({
-        message:result ? "success" : "failed"
-    })
+    res.json(result ? result : {message:"failed"})
 }

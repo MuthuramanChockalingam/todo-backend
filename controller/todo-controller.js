@@ -13,14 +13,25 @@ exports.createTodo = async(req, res) => {
     })
 }
 
-exports.allTodo = async(req, res) => {
-    const todos = await todo.findAll({});
-    res.json({
-        todos: todos
-    })
+exports.listTodos = async(req, res) => {
+    const result = await todo.findAll({});
+    res.json(result)
 }
 
-exports.deletetodo = async(req, res) => {
+exports.getTodo = async (req, res) => {
+    const {task_id} = req.params;
+
+    const result = await todo.findOne({
+        where: {
+            id: {
+                [Op.eq]: todo_id
+            }
+        }
+    });
+    res.json(result)
+}
+
+exports.deleteTodo = async(req, res) => {
     const result = await todo.destroy({
         where: {
             id: {
@@ -28,9 +39,7 @@ exports.deletetodo = async(req, res) => {
             }
         }
     });
-    res.json({
-        message: result ? "success" : "ID does not exists"
-    })
+    res.json(result ? {} : { message: "failed" })
 }
 
 exports.updateTodo = async(req, res) => {
@@ -45,7 +54,5 @@ exports.updateTodo = async(req, res) => {
         }
     }
     );
-    res.json({
-        message: result ? "success" : "error"
-    })
+    res.json(result ? result : {message:"failed"})
 }
