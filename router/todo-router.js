@@ -1,8 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const todoController = require("../controller/todo-controller");
+const genRouter = require('./gen-router');
 
-router.route("/").get(todoController.list).post(todoController.create);
-router.route("/:id").get(todoController.get).put(todoController.update).delete(todoController.delete);
+const todoRouter = genRouter("todo");
 
-module.exports = router;
+module.exports = todoRouter;
