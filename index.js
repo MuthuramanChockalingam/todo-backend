@@ -6,6 +6,6 @@ const PORT = 4000;
 
 app.use(express.urlencoded());
 app.use(express.json());
-['todo', 'task'].forEach((type) => app.use(`/${type}`, genRouter(type)));
+['todo', 'task', 'user'].forEach((type) => app.use(`/${type}`, genRouter(type)));
 
 app.listen(PORT, () => console.log(`server listening to ${PORT}`));
