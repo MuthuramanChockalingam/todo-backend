@@ -1,13 +1,9 @@
 const express = require("express");
-
-const controllers = {
-    todo: require("../controller/todo-controller"),
-    task: require("../controller/task-controller"),
-};
+const genController = require('../controller/gen-controller');
 
 const genRouter = (type) => {
     const router = express.Router();
-    const controller = controllers[type];
+    const controller = genController(type);
 
     router.route("/")
         .get(controller.list)
