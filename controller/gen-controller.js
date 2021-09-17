@@ -11,9 +11,7 @@ const genController = (type) => {
             const result = await model.create({
                 ...req.body
             });
-            res.json({
-                message: result ? "succesfully created" : "failed"
-            })
+            res.json(result)
         },
         list: async (req, res) => {
             const result = await model.findAll({});
@@ -39,7 +37,7 @@ const genController = (type) => {
                     }
                 }
             });
-            res.json(result ? {} : { message: "failed" })
+            res.json(result)
         },
         update: async (req, res) => {
             const result = await model.update({
@@ -52,7 +50,7 @@ const genController = (type) => {
                     }
                 }
             });
-            res.json(result ? result : {message:"failed"})
+            res.json(result)
         }
 });}
 
