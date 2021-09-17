@@ -41,7 +41,7 @@ const genController = (type) => {
         },
         update: async (req, res) => {
             const result = await model.update({
-                text: req.body.text
+                ...req.body
             },
             {
                 where: {
